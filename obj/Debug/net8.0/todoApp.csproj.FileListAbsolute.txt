@@ -105,3 +105,4 @@ D:\BIG DATA\Project\NET\todoApp\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.
 D:\BIG DATA\Project\NET\todoApp\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\BIG DATA\Project\NET\todoApp\obj\Debug\net8.0\todoApp.csproj.AssemblyReference.cache
 D:\BIG DATA\Project\NET\todoApp\obj\Debug\net8.0\todoApp.csproj.Up2Date
+D:\BIG DATA\Project\NET\todoApp\obj\Debug\net8.0\todoApp.sourcelink.json

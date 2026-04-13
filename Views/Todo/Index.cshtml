@@ -2,6 +2,7 @@
 
 <div class="col-lg-6">
     <input type="text" id="title" placeholder="Todo baru" class="form-control">
+    <p id="error-title" class="text-danger"></p>
     <button onclick="addTodo()" class="btn btn-primary">Tambah</button>
 </div>
 
@@ -22,13 +23,19 @@ function loadData() {
         $('#list').html(html);
     });
 }
-
 function addTodo() {
     $.post('/todo/create', {
         title: $('#title').val()
-    }, function() {
-        $('#title').val('');
-        loadData();
+    }, function(res) {
+        if (!res.success) {
+            if (res.errors.title) {
+                $('#error-title').text(res.errors.title[0]);
+            }
+        } else {
+            $('#title').val('');
+            $('#error-title').text('');
+            loadData();
+        }
     });
 }
 

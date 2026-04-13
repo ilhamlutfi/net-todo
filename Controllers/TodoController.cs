@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using todoApp.Data;
 using todoApp.Models;
+using todoApp.Requests;
 
 namespace todoApp.Controllers
 {
@@ -28,9 +29,26 @@ namespace todoApp.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Store(string title)
+        public IActionResult Store(TodoRequest request)
         {
-            var todo = new Todo { Title = title, IsDone = false };
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .ToDictionary(
+                        k => k.Key.ToLower(),
+                        v => v.Value.Errors.Select(e => e.ErrorMessage)
+                    );
+                    
+                return Json(new { success = false, errors = errors });
+            }
+
+            var todo = new Todo
+            {
+                Title = request.Title,
+                IsDone = false
+            };
+
             _context.Todos.Add(todo);
             _context.SaveChanges();
 

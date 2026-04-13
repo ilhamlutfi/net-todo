@@ -1,0 +1,44 @@
+<h2>Todo App</h2>
+
+<div class="col-lg-6">
+    <input type="text" id="title" placeholder="Todo baru" class="form-control">
+    <button onclick="addTodo()" class="btn btn-primary">Tambah</button>
+</div>
+
+<ul id="list" class="list-group"></ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+function loadData() {
+    $.get('/todo/get-list', function(data) {
+        let html = '';
+        data.forEach(x => {
+            html += `<li>
+                ${x.title}
+                <button onclick="hapus(${x.id})">X</button>
+            </li>`;
+        });
+        $('#list').html(html);
+    });
+}
+
+function addTodo() {
+    $.post('/todo/create', {
+        title: $('#title').val()
+    }, function() {
+        $('#title').val('');
+        loadData();
+    });
+}
+
+function hapus(id) {
+    $.post('/todo/delete', { id: id }, function() {
+        loadData();
+    });
+}
+
+$(document).ready(function() {
+    loadData();
+});
+</script>

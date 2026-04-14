@@ -4,8 +4,8 @@ namespace todoApp.Requests
 {
     public class TodoRequest
     {
-        [Required]
-        [MinLength(3)]
+        [Required(ErrorMessage = "Title wajib diisi")]
+        [MinLength(3, ErrorMessage = "Title minimal 3 karakter")]
         public required string Title { get; set; }
     }
 }
